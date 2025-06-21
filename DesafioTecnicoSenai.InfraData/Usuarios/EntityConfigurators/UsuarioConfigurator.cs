@@ -28,7 +28,18 @@ namespace DesafioTecnicoSenai.InfraData.Usuarios.EntityConfigurators
                 .IsRequired()
                 .HasConversion<int>();
 
+            builder.Property(u => u.ColaboradorId)
+                .IsRequired(false);
+
+            builder.Property(u => u.UserLoginId)
+                .IsRequired(false);
+
             builder.HasIndex(u => u.Email).IsUnique();
+
+            builder.HasOne(u => u.Colaborador)
+                .WithOne(c => c.Usuario)
+                .HasForeignKey<Usuario>(u => u.ColaboradorId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

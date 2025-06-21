@@ -37,9 +37,6 @@ namespace DesafioTecnicoSenai.API.Areas.Colaboradores.Validators
 
             RuleFor(c => c.FuncaoId)
                 .NotEmpty().WithMessage("Função é obrigatória.");
-
-            RuleFor(c => c.Usuario)
-                .NotEmpty().WithMessage("Usuário deve ser gerado automaticamente.");
         }
 
         private bool NomeValido(string nome)

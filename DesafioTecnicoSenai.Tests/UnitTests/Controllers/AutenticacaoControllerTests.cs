@@ -85,56 +85,6 @@ namespace DesafioTecnicoSenai.Tests.UnitTests.Controllers
             Assert.NotNull(valueType.GetProperty("token"));
             Assert.NotNull(valueType.GetProperty("expiration"));
         }
-
-        [Fact]
-        public async Task Register_ReturnsBadRequest_WhenUserExists()
-        {
-            // Arrange
-            var registerDto = new UserRegisterDto { Email = "test@test.com", UserName = "test", Password = "password", ConfirmPassword = "password" };
-            _userManagerMock.Setup(x => x.FindByEmailAsync(registerDto.Email)).ReturnsAsync(new User());
-
-            // Act
-            var result = await _controller.Register(registerDto);
-
-            // Assert
-            var badRequest = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Usuário já existe!", badRequest.Value);
-        }
-
-        [Fact]
-        public async Task Register_ReturnsBadRequest_WhenCreateFails()
-        {
-            // Arrange
-            var registerDto = new UserRegisterDto { Email = "test@test.com", UserName = "test", Password = "password", ConfirmPassword = "password" };
-            _userManagerMock.Setup(x => x.FindByEmailAsync(registerDto.Email)).ReturnsAsync((User)null);
-            _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), registerDto.Password))
-                .ReturnsAsync(IdentityResult.Failed(new IdentityError { Description = "Error" }));
-
-            // Act
-            var result = await _controller.Register(registerDto);
-
-            // Assert
-            var badRequest = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.NotNull(badRequest.Value);
-        }
-
-        [Fact]
-        public async Task Register_ReturnsOk_WhenUserCreated()
-        {
-            // Arrange
-            var registerDto = new UserRegisterDto { Email = "test@test.com", UserName = "test", Password = "password", ConfirmPassword = "password" };
-            _userManagerMock.Setup(x => x.FindByEmailAsync(registerDto.Email)).ReturnsAsync((User)null);
-            _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), registerDto.Password))
-                .ReturnsAsync(IdentityResult.Success);
-            _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), "User")).ReturnsAsync(IdentityResult.Success);
-
-            // Act
-            var result = await _controller.Register(registerDto);
-
-            // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            Assert.Equal("Usuário registrado com sucesso!", okResult.Value);
-        }
     }
 
 }

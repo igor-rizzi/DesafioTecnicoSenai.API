@@ -11,7 +11,7 @@ namespace DesafioTecnicoSenai.InfraData.Seeds
             var roles = new[]
             {
                 "Administrador",
-                "Analista Financeiro",
+                "AnalistaFinanceiro",
                 "Colaborador"
             };
 

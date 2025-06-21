@@ -40,11 +40,10 @@ namespace DesafioTecnicoSenai.InfraData.Colaboradores.EntityConfigurators
             builder.HasIndex(c => c.Email)
                 .IsUnique();
 
-            builder.Property(c => c.Usuario)
-                .IsRequired()
-                .HasMaxLength(100);
+            builder.Property(c => c.UsuarioId)
+                .IsRequired(false);
 
-            builder.HasIndex(c => c.Usuario)
+            builder.HasIndex(c => c.UsuarioId)
                 .IsUnique();
 
             builder.Property(c => c.CargoId)

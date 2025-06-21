@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DesafioTecnicoSenai.Application;
 using DesafioTecnicoSenai.Application.Interfaces;
+using DesafioTecnicoSenai.Application.Interfaces.Services;
 using DesafioTecnicoSenai.Domain.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +12,11 @@ namespace DesafioTecnicoSenai.API.Common
         where TEntity : Entity
         where TModel : IModel
     {
-        private ICrudService<TEntity> _crudService = null!;
+        private IBaseCrudService<TEntity> _crudService = null!;
         private IMapper _mapper = null!;
 
-        protected ICrudService<TEntity> CrudService =>
-            _crudService ??= HttpContext.RequestServices.GetRequiredService<ICrudService<TEntity>>();
+        protected IBaseCrudService<TEntity> CrudService =>
+            _crudService ??= HttpContext.RequestServices.GetRequiredService<IBaseCrudService<TEntity>>();
 
         protected IMapper Mapper =>
             _mapper ??= HttpContext.RequestServices.GetRequiredService<IMapper>();
@@ -84,7 +84,7 @@ namespace DesafioTecnicoSenai.API.Common
                 model.Id = 0;
                 var entity = Mapper.Map<TEntity>(model);
 
-                await CrudService.Insert(entity);
+                await CrudService.InsertAndSaveAsync(entity);
                 model.Id = entity.Id;
 
                 return Json(new { Sucesso = true, Dados = model });

@@ -1,9 +1,9 @@
 ﻿using DesafioTecnicoSenai.Domain.Common;
 using DesafioTecnicoSenai.InfraFramework.Dependency;
 
-namespace DesafioTecnicoSenai.Application
+namespace DesafioTecnicoSenai.Application.Interfaces.Services
 {
-    public interface ICrudService<TEntity> : IScopedDependency where TEntity : Entity
+    public interface IBaseCrudService<TEntity> : IScopedDependency where TEntity : Entity
     {
         Task<TEntity> GetFirstAsync();
 
@@ -11,9 +11,11 @@ namespace DesafioTecnicoSenai.Application
 
         Task<TEntity> Insert(TEntity entity);
 
+        Task<TEntity> InsertAndSaveAsync(TEntity entity);
+
         Task SaveChangesAsync();
 
-        Task<TEntity> UpdateAndSaveAsync(TEntity entities);
+        Task<TEntity> UpdateAndSaveAsync(TEntity entity);
 
         Task<IEnumerable<TEntity>> UpdateAndSaveAsync(IEnumerable<TEntity> entities);
 

@@ -33,7 +33,7 @@ namespace DesafioTecnicoSenai.API.Areas.Reembolsos.Controllers
                 model.Id = 0;
                 var entity = Mapper.Map<Reembolso>(model);
 
-                await CrudService.Insert(entity);
+                await CrudService.InsertAndSaveAsync(entity);
                 model.Id = entity.Id;
 
                 return Json(new { Sucesso = true, Dados = model });

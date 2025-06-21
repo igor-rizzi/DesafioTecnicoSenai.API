@@ -1,7 +1,7 @@
 using AutoMapper;
 using DesafioTecnicoSenai.API.Areas.Administracao.Controllers;
 using DesafioTecnicoSenai.API.Areas.Administracao.Models;
-using DesafioTecnicoSenai.Application;
+using DesafioTecnicoSenai.Application.Interfaces.Services;
 using DesafioTecnicoSenai.Domain.Entities.Administracao;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -10,13 +10,13 @@ namespace DesafioTecnicoSenai.Tests.UnitTests.Controllers
 {
     public class CargoControllerTests
     {
-        private readonly Mock<ICrudService<Cargo>> _crudServiceMock;
+        private readonly Mock<IBaseCrudService<Cargo>> _crudServiceMock;
         private readonly Mock<IMapper> _mapperMock;
         private readonly CargoController _controller;
 
         public CargoControllerTests()
         {
-            _crudServiceMock = new Mock<ICrudService<Cargo>>();
+            _crudServiceMock = new Mock<IBaseCrudService<Cargo>>();
             _mapperMock = new Mock<IMapper>();
 
             // Usando reflexão para injetar dependências protegidas
@@ -36,7 +36,7 @@ namespace DesafioTecnicoSenai.Tests.UnitTests.Controllers
             var model = new CargoModel { Nome = "Analista", Descricao = "Analista de Sistemas" };
             var cargo = new Cargo { Nome = model.Nome, Descricao = model.Descricao };
             _mapperMock.Setup(m => m.Map<Cargo>(model)).Returns(cargo);
-            _crudServiceMock.Setup(s => s.Insert(It.IsAny<Cargo>())).ReturnsAsync(cargo);
+            _crudServiceMock.Setup(s => s.InsertAndSaveAsync(It.IsAny<Cargo>())).ReturnsAsync(cargo);
 
             // Act
             var resultado = await _controller.Inserir(model);

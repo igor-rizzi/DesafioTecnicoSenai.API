@@ -1,5 +1,6 @@
 ﻿using DesafioTecnicoSenai.Domain.Common;
 using DesafioTecnicoSenai.Domain.Entities.Administracao;
+using DesafioTecnicoSenai.Domain.Entities.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,10 +32,6 @@ namespace DesafioTecnicoSenai.Domain.Entities.Colaboradores
         [Required]
         public required string Email { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public required string Usuario { get; set; }
-
         [NotMapped]
         public bool Ativo => !DataRescisao.HasValue || DataRescisao.Value.Date > DateTime.Now.Date;
 
@@ -48,6 +45,9 @@ namespace DesafioTecnicoSenai.Domain.Entities.Colaboradores
         [Required]
         public long FuncaoId { get; set; }
 
+
+        public long? UsuarioId { get; set; }
+
         #endregion Foreign Keys
 
         #region Related Properties
@@ -55,6 +55,8 @@ namespace DesafioTecnicoSenai.Domain.Entities.Colaboradores
         public Cargo Cargo { get; set; }
 
         public Funcao Funcao { get; set; }
+
+        public Usuario Usuario { get; set; }
 
         #endregion Related Properties
     }
