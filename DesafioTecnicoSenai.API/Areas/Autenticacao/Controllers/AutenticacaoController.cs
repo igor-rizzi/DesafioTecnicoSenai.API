@@ -11,6 +11,8 @@ using System.Text;
 namespace DesafioTecnicoSenai.API.Areas.Autenticacao.Controllers
 {
     [Authorize(Roles = "Administrador")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class AutenticacaoController : ControllerBase
     {
         private readonly UserManager<User> _userManager;

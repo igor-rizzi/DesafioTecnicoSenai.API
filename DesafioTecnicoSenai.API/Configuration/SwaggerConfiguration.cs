@@ -10,9 +10,9 @@ namespace DesafioTecnicoSenai.API.Configuration
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "StockTrader API",
+                    Title = "Desafio Tecnico Fiesc API",
                     Version = "v1",
-                    Description = "API para gerenciamento de operações de trade de ações.",
+                    Description = "API",
                     TermsOfService = new Uri("https://exemplo.com/termos"),
                     Contact = new Microsoft.OpenApi.Models.OpenApiContact
                     {

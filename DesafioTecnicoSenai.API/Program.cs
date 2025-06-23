@@ -7,6 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
@@ -21,6 +32,8 @@ builder.Services.AddAuthorizationWithPolicies();
 builder.Services.AddSwaggerConfiguration(builder.Configuration);
 
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
 
 using (var scope = app.Services.CreateScope())
 {
