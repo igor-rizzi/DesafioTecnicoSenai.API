@@ -72,10 +72,50 @@ Este projeto é uma API RESTful que oferece recursos para autenticação de usuário
     { 
       "email": "usuario@teste.com", 
       "password": "Senha123!" 
-    }
+    }```
    **Resposta:** JWT Token
+
 ### Cargos
 
 - **Listar cargos**
-- **Criar cargo**
+- GET /api/Cargo
 
+- **Criar cargo**
+POST /api/Cargo ```json
+{ 
+    "nome": "Analista", 
+    "descricao": "Analista de Sistemas" 
+}```
+  **Resposta:** Cargo criado com sucesso
+
+### Reembolsos
+
+- **Solicitar reembolso**
+POST /api/Reembolso ```json
+{ 
+    "colaboradorId": 1, 
+    "valor": 100.00, 
+    "descricao": "Reembolso de despesas" 
+}```
+  **Resposta:** Reembolso solicitado com sucesso
+
+---
+
+## Tratamento de Erros
+
+A API utiliza um middleware global para capturar exceções e retornar respostas padronizadas em JSON, facilitando o consumo e o debug.
+
+---
+
+## Testes
+
+Os testes unitários e de integração estão localizados na pasta `DesafioTecnicoSenai.Tests`. Para rodar os testes:
+---
+
+## Observações
+
+- Para acessar endpoints protegidos, é necessário autenticar-se e fornecer o token JWT no header `Authorization`.
+- O projeto segue boas práticas de arquitetura, separando áreas, models, mapeamentos e validações.
+- Para dúvidas ou sugestões, utilize o repositório ou entre em contato com o responsável pelo projeto.
+
+---
