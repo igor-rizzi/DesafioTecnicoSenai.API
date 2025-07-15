@@ -33,12 +33,19 @@ namespace DesafioTecnicoSenai.Application.Services
 
         public virtual async Task<TEntity> InsertAndSaveAsync(TEntity entity)
         {
+            try
+            {
+                _repository.Add(entity);
 
-            _repository.Add(entity);
+                await _repository.SaveChangesAsync();
 
-            await _repository.SaveChangesAsync();
-
-            return entity;
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocorreu um erro ao inserir o registro, entre em contato com a administração.", ex);
+            }
+            
         }
 
         public async Task SaveChangesAsync()

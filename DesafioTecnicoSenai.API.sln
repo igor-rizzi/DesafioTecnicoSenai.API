@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{63E6736E-16B3-4DD3-8770-10A7EEF925A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailWorker", "EmailWorker\EmailWorker.csproj", "{6A02AB69-5B15-43EF-A1CF-E0FE915316A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{FA28F601-6688-4FA3-B2CA-7C0555088586}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA28F601-6688-4FA3-B2CA-7C0555088586}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA28F601-6688-4FA3-B2CA-7C0555088586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A02AB69-5B15-43EF-A1CF-E0FE915316A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A02AB69-5B15-43EF-A1CF-E0FE915316A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A02AB69-5B15-43EF-A1CF-E0FE915316A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A02AB69-5B15-43EF-A1CF-E0FE915316A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{18B372CA-BFA9-4AFC-BBDD-3CE38014AB7B} = {9927333F-2BA7-469F-B117-D16B8067F67A}
 		{A1874EDF-7779-425C-A123-F57BE60B0A1F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FA28F601-6688-4FA3-B2CA-7C0555088586} = {9927333F-2BA7-469F-B117-D16B8067F67A}
+		{6A02AB69-5B15-43EF-A1CF-E0FE915316A2} = {9927333F-2BA7-469F-B117-D16B8067F67A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {58C15B16-4AFA-4923-9C1A-9D74A12B6441}

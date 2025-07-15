@@ -2,6 +2,8 @@
 using DesafioTecnicoSenai.API.Areas.Colaboradores.Models;
 using DesafioTecnicoSenai.API.Common;
 using DesafioTecnicoSenai.Application.Interfaces.Services;
+using DesafioTecnicoSenai.Application.Models;
+using DesafioTecnicoSenai.Application.Services;
 using DesafioTecnicoSenai.Domain.Common;
 using DesafioTecnicoSenai.Domain.Entities.Colaboradores;
 using DesafioTecnicoSenai.InfraData.Models.Autenticacao;
@@ -17,17 +19,20 @@ namespace DesafioTecnicoSenai.API.Areas.Colaboradores.Controllers
     [Route("api/[controller]")]
     public class ColaboradorController : CrudController<Colaborador, ColaboradorModel>
     {
-        private readonly ICrudService<Colaborador> _colaboradorService;
+        private readonly ICrudService<Colaborador> _crudColaboradorService;
+        private readonly IColaboradorService _colaboradorService;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public ColaboradorController(ICrudService<Colaborador> colaborador, 
-            IMapper mapper, 
-            UserManager<User> userManager)
+        public ColaboradorController(ICrudService<Colaborador> colaborador,
+            IMapper mapper,
+            UserManager<User> userManager,
+            IColaboradorService colaboradorService)
         {
-            _colaboradorService = colaborador;
+            _crudColaboradorService = colaborador;
             _mapper = mapper;
             _userManager = userManager;
+            _colaboradorService = colaboradorService;
         }
 
         [HttpPost("inserir")]
@@ -51,6 +56,29 @@ namespace DesafioTecnicoSenai.API.Areas.Colaboradores.Controllers
                 if (user != null)
                 {
                     entity.UsuarioId = user.UsuarioAppId;
+                }
+                else
+                {
+                    var newUser = new User
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                    };
+                    var result = await _userManager.CreateAsync(newUser, "SenhaPadrão123!");
+
+                    if (!result.Succeeded)
+                    {
+                        return Json(new { Sucesso = false, Mensagem = "Erro ao criar usuário: " + string.Join(", ", result.Errors.Select(e => e.Description)) });
+                    }
+                    await _userManager.AddToRoleAsync(newUser, "Colaborador");
+
+                    _colaboradorService.CriarColaboradorAsync(new CriarColaboradorDto
+                    {
+                        Nome = model.Nome,
+                        Email = model.Email
+                    });
+
+                    entity.UsuarioId = newUser.UsuarioAppId;
                 }
 
 
